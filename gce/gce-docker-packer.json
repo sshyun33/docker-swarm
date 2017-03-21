@@ -1,0 +1,20 @@
+{
+  "variables": { 
+    "os_variant": "ubuntu-xenial"
+  },
+  "builders": [{
+    "type": "googlecompute",
+    "account_file": "./GCP-My-Project-01.key", 
+    "zone": "asia-northeast1-a",
+    "machine_type": "g1-small",
+    "project_id": "my-project-01-157810",
+    "source_image": "ubuntu-1604-xenial-v20170307",
+    "image_name" : "docker-{{user `os_variant`}}-{{timestamp}}",    
+    "image_description" : "This is a docker ubuntu image.",
+    "ssh_username": "ubuntu"
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "script": "./script/docker-{{user `os_variant`}}-installer.sh"
+  }]
+}
